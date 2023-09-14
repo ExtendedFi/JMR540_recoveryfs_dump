@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/css/stylesheet.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/common.js" language="javascript"></script>
+<title>Reliance Wireless Router</title>
+</head>
+<script language="JavaScript">
+var userAgent = navigator.userAgent; 
+var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+function updatecontent()
+{
+	 if(/Windows/i.test(userAgent))
+	 {
+	    if(isSafari == false)
+		{
+			var browser=navigator.userAgent.toLowerCase();
+			if(browser.indexOf('firefox') > -1) {				
+				document.getElementById("last").className = "last_pc_firefox";
+				document.getElementById("4").className = "on_e_pc_firefox";
+			}
+			else{		
+		document.getElementById("last").className = "last_pc";
+		document.getElementById("4").className = "on_e_pc";
+	 }
+	    }
+	 else
+	 {
+			document.getElementById("last").className = "last_Safari";
+			document.getElementById("4").className = "on_e_Safari";			
+		}
+	 }
+	 else
+	 {
+		document.getElementById("last").className = "last";	
+		document.getElementById("4").className = "on_e";	
+	 }
+ }
+ 
+ function createMenuLast()
+ {
+	document.getElementById("1").className = "";
+	document.getElementById("2").className = "";
+	document.getElementById("3").className = "";
+	 if(/Windows/i.test(userAgent))
+	 {
+	    if(isSafari == false)
+		{
+		    var browser=navigator.userAgent.toLowerCase();
+		    if(browser.indexOf('firefox') > -1) 
+		      document.getElementById("4").className = "on_e_pc_firefox";
+			else
+		document.getElementById("4").className = "on_e_pc";
+	 }
+	 else
+	 {
+			document.getElementById("4").className = "on_e_Safari";
+		}
+	 }
+	 else
+	 {
+		document.getElementById("4").className = "on_e";	
+	 }
+ }
+</script>
+<body onload="updatecontent()">
+<div class="mainMenu">
+	<ul>
+	<li id="1" onclick="createMenu(1,4)">
+	<div class="first">
+	<a href="/cgi-bin/en-jio/mStatus.html" class="normal" target="content"><center>Status</center></a>
+	</div>
+	</li>
+	<img src="/images/gray_line.png">
+	<li id="2" onclick="createMenu(2,4)">
+	<div class="normal">
+	<a href="/no-cgi/networkMenu.html" class="normal" target="content"><center>Network</center></a>
+	</div>
+	</li>
+	<img src="/images/gray_line.png">
+	<li id="3" onclick="createMenu(3,4)">
+	<div class="normal">
+	<a href="/no-cgi/wifiDiskMenu.html" class="normal" target="content"><center>Wi-Fi Disk</center></a>
+	</div>
+	</li>	
+	<img src="/images/gray_line.png">	
+	<li id="4" onclick="createMenuLast()">
+	<div id="last" class="last_pc">
+	<a href="/no-cgi/userMgtMenu.html" target="content"><center>User Management</center></a>
+	</div>
+	</li>	
+	</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>ACS Settings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<link href="/css/stylesheet.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="/js/validate.js"></script>
+<script language="JavaScript" src="/js/message.js"></script>
+<script language="JavaScript" src="/js/common.js"></script>
+
+<script language="JavaScript">
+function InformStatusChanged(InformEnabled)
+{
+	if(InformEnabled.value == 1)
+	{
+		document.getElementById("CWMPPERIODICINFORMINTERVAL").style.display = "block";	
+		document.getElementById("lTr069InformInterval").style.display = "block";		
+	}else
+	{
+		document.getElementById("CWMPPERIODICINFORMINTERVAL").style.display = "none";
+		document.getElementById("lTr069InformInterval").style.display = "none";
+	}
+}
+
+function startACSConnect()
+{
+	var acsUrl = document.myForm.ACSSERVERURL;
+	if (checkEmpty(acsUrl)) 
+	{
+		alert("ACS URL can not be empty.");
+		acsUrl.focus();
+		return false;
+	}
+
+	if (acsUrl.value.length > 255) 
+	{
+		alert("The maximan length of ACS URL is 255.");
+		acsUrl.focus();
+		return false;
+	}
+	
+	var acsUsrname = document.myForm.ACSUSERNAME;
+	if (checkEmpty(acsUsrname)) 
+	{
+		alert("Username can not be empty.");
+		acsUsrname.focus();
+		return false;
+	}
+	
+	if (acsUsrname.value.length > 255) 
+	{
+		alert("The maximan length of Username is 255.");
+		acsUsrname.focus();
+		return false;
+	}	
+	
+	var acsPwd = document.myForm.ACSPASSWORD;
+	if (!checkEmpty(acsPwd)) 
+	{
+		if (acsPwd.value.length > 255) 
+		{
+			alert("The maximan length of Password is 255.");
+			acsPwd.focus();
+			return false;
+		}
+	}		
+	
+	document.forms["myForm"].submit();
+	return true;
+}
+
+function update_content()
+{
+	var CWMPPERIODICINFORMENABLE = "~~CWMPPERIODICINFORMENABLE~";
+	if(CWMPPERIODICINFORMENABLE == "0")
+	{
+		document.getElementById("CWMPPERIODICINFORMINTERVAL").style.display = "none";
+		document.getElementById("lTr069InformInterval").style.display = "none";
+	}	
+}
+</script>
+</head>
+
+<body onLoad="update_content();" > 
+<form name="myForm" method="post" action="/cgi-bin/en-jio/mAcsManage_Start.html">
+<input type="hidden" name="RequestVerifyToken" value="~*token~">
+<div class="mainContent" id="mainContent">
+<div class="maintitle">
+<label id="title" class="title">ACS Settings</label>
+</div>
+<hr color="#D8D8D8" size="1px" width="100%"> </hr>
+<div id="Content" class="content">  
+	<div style="display: block;" id="Acs_Management_div">
+	<table width="650px">
+	<tr height="70px">
+	<td colspan="2"><label id="lTr069AcsUrl">ACS URL:</label></td>
+	</tr>
+	<tr>
+	<td colspan="2"><input name="ACSSERVERURL" value="~~ACSSERVERURL~" id="ACSSERVERURL" class="acsurltest" type="text" maxLength="256"></td>
+	</tr>
+	<tr height="70px">
+	<td><label id="lTr069AcsUsername">Username:</label></td>
+	<td><label id="lTr069AcsPassword">Password:</label></td>
+	</tr>
+	<tr>
+	<td><input name="ACSUSERNAME" value="~*acsusername~" id="ACSUSERNAME" class="textfield" type="text"></td>
+	<td><input name="ACSPASSWORD" value="" id="ACSPASSWORD" class="textfield" type="password" placeholder="ACS Password"></td>
+	</tr>
+	<tr height="70px">
+	<td><label id="lTr069Inform">Periodic Inform:</label></td>
+	<td><label id="lTr069InformInterval">Periodic Inform Interval:</label></td>
+	</tr>
+	<tr>	
+	<td>
+	<select id="lInform" name="CWMPPERIODICINFORMENABLE" onchange="InformStatusChanged(this)">
+	<option value="1" ~sCWMPPERIODICINFORMENABLE:1:0~ >Enabled</option>
+	<option value="0" ~sCWMPPERIODICINFORMENABLE:0:0~ >Disabled</option>
+	</select>	
+	</td>	
+	<td><input name="CWMPPERIODICINFORMINTERVAL" value="~~CWMPPERIODICINFORMINTERVAL~" id="CWMPPERIODICINFORMINTERVAL" class="textfield" type="text"></td>
+	</tr>
+	
+	<tr height="70px">
+	<td><label id="lTr069ConnName">Connection Request UserName:</label></td>
+	<td><label id="lTr069ConnPassword">Connection Request Password:</label></td>
+	</tr>
+	<tr>
+	<td><input name="CWMPMANGSERVERREQUSERNAME" value="~~CWMPMANGSERVERREQUSERNAME~" id="CWMPMANGSERVERREQUSERNAME" class="textfield" type="text"></td>
+	<td><input name="CWMPMANGSERVERREQPASSWORD" value="~~CWMPMANGSERVERREQPASSWORD~" id="CWMPMANGSERVERREQPASSWORD" class="textfield" type="text"></td>
+	</tr>	
+	</table>
+	<div class="buttonStyle" align="left">			
+	<input id="btUpdate" value="Save" onclick="startACSConnect()" type="button">			
+	</div>
+	</div>	
+</div>	
+</div>
+</form>
+</body>
+</html>
